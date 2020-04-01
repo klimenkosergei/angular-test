@@ -2,7 +2,14 @@
   <div class="message__header">
     <div class="message__user">{{ message.user }}</div>
     <div class="message__time">{{ message.timestamp }}</div>
-    <div *ngIf="isAuthor"></div>
+    <div *ngIf="isAuthor" class="message__controls">
+      <button mat-icon-button color="primary" (click)="onEdit()">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button color="warn" (click)="onDelete()">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
   </div>
   <div class="message__body">
     {{ message.text }}

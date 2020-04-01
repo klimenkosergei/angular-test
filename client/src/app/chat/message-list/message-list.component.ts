@@ -1,4 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  Input,
+  Output,
+  EventEmitter
+} from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { Message } from '../mesage.model';
@@ -9,7 +16,8 @@ import { ChatService } from '../chat.service';
   templateUrl: './message-list.component.html',
   styleUrls: ['./message-list.component.scss']
 })
-export class MessageListComponent implements OnInit {
+export class MessageListComponent implements OnInit, OnDestroy {
+  @Output() editMsg: EventEmitter<Message> = new EventEmitter();
   messages: Message[];
   messagesSubscription: Subscription;
 
@@ -19,9 +27,17 @@ export class MessageListComponent implements OnInit {
     this.messages = this.chatService.getMessages();
     this.messagesSubscription = this.chatService.msgsChange.subscribe(
       updatedMessages => {
-        console.log('subscription update');
         this.messages = updatedMessages;
       }
     );
+  }
+
+  editMessage(msg: Message): void {
+    this.editMsg.emit(msg);
+  }
+
+  ngOnDestroy(): void {
+    this.messagesSubscription.unsubscribe();
+    this.messagesSubscription = null;
   }
 }

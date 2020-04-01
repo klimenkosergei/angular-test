@@ -3,5 +3,6 @@
     class="message__item"
     *ngFor="let message of messages"
     [message]="message"
+    (editMessage)="editMessage($event)"
   ></app-message-item>
 </mat-card-content>

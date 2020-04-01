@@ -29,4 +29,18 @@ export class ChatService {
     localStorage.setItem('messages', JSON.stringify([...this.messages]));
     this.msgsChange.next(this.messages);
   }
+
+  updateMessage(msg: Message): void {
+    this.messages = this.messages.map(message =>
+      message.id === msg.id ? msg : message
+    );
+    localStorage.setItem('messages', JSON.stringify([...this.messages]));
+    this.msgsChange.next(this.messages);
+  }
+
+  removeMessage(id: string): void {
+    this.messages = this.messages.filter(msg => msg.id !== id);
+    localStorage.setItem('messages', JSON.stringify([...this.messages]));
+    this.msgsChange.next(this.messages);
+  }
 }
