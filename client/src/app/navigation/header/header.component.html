@@ -1,0 +1,8 @@
+<mat-toolbar class="toolbar" color="primary">
+  <div class="toolbar__container">
+    <a routerLink="/" class="toolbar__logo">AngularChat</a>
+    <a *ngIf="isAuth" class="toolbar__link" (click)="onLogout()">
+      Выйти
+    </a>
+  </div>
+</mat-toolbar>

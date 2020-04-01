@@ -1,0 +1,23 @@
+.toolbar {
+  display: flex;
+  justify-content: center;
+
+  &__container {
+    flex: 1;
+    max-width: 96rem;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__logo,
+  &__link {
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+
+    &:hover,
+    &:active {
+      color: lightgrey;
+    }
+  }
+}

@@ -1,0 +1,29 @@
+<div class="chat">
+  <mat-card class="chat__body">
+    <mat-card-title class="chat__title">Chat Room</mat-card-title>
+    <app-message-list class="chat__messages"></app-message-list>
+    <mat-card-actions>
+      <form #f="ngForm" (ngSubmit)="onSubmit(f)" class="chat__form">
+        <mat-form-field class="chat__form-field">
+          <input
+            type="text"
+            class="chat__input"
+            matInput
+            ngModel
+            name="message"
+            autocomplete="off"
+            placeholder="Напишите сообщение..."
+          />
+        </mat-form-field>
+        <button
+          type="submit"
+          class="chat__submit"
+          mat-flat-button
+          color="primary"
+        >
+          Отправить
+        </button>
+      </form>
+    </mat-card-actions>
+  </mat-card>
+</div>

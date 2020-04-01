@@ -1,0 +1,32 @@
+<div class="login">
+  <mat-card class="login__card">
+    <mat-card-title class="login__title">Добро пожаловать</mat-card-title>
+    <mat-card-content>
+      <form #f="ngForm" (ngSubmit)="onSubmit(f)" class="login__form">
+        <mat-form-field>
+          <mat-label>Имя пользователя</mat-label>
+          <input
+            type="text"
+            matInput
+            ngModel
+            name="username"
+            required
+            autocomplete="off"
+            #usernameInput="ngModel"
+          />
+          <mat-error *ngIf="usernameInput.hasError('required')">
+            Это поле обязательно для заполнения
+          </mat-error>
+        </mat-form-field>
+        <button
+          type="submit"
+          mat-raised-button
+          color="primary"
+          class="login__btn"
+        >
+          Войти
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

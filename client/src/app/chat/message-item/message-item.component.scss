@@ -1,0 +1,19 @@
+.message {
+  &__header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  &__user {
+    font-size: 1.8rem;
+    line-height: 1.2;
+  }
+
+  &__time {
+    font-size: 1.2rem;
+    color: #9c9c9c;
+    line-height: 1.2;
+    margin-left: 1.5rem;
+  }
+}

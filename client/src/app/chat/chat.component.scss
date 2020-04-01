@@ -1,0 +1,41 @@
+.chat {
+  display: flex;
+  justify-content: center;
+  padding: 3rem 0;
+  height: 90%;
+
+  &__title {
+    border-bottom: 1px solid #ddd;
+    padding: 3rem 5rem;
+  }
+
+  &__body {
+    flex: 1;
+    max-width: 96rem;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__messages {
+    flex: 1;
+    padding: 1rem 5rem 2rem;
+    margin: 0;
+    overflow-y: auto;
+    border-bottom: 1px solid #ddd;
+  }
+
+  &__form {
+    display: flex;
+    align-items: center;
+    padding: 2rem 6rem 3rem;
+  }
+
+  &__form-field {
+    flex: 1;
+  }
+
+  &__submit {
+    margin-left: 2rem;
+  }
+}
