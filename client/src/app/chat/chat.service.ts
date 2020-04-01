@@ -16,6 +16,7 @@ export class ChatService {
     if (_messages) {
       this.messages = _messages;
     } else {
+      this.messages = [];
       // If there are no messages object in local storage create it
       localStorage.setItem('messages', '[]');
     }
