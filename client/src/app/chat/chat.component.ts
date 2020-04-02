@@ -17,6 +17,7 @@ export class ChatComponent implements OnInit {
     message: new FormControl('')
   });
   @ViewChild('messageInput') messageInput: ElementRef;
+  @ViewChild('messageList', { read: ElementRef }) messageList: ElementRef;
   user: User;
   message: Message;
 
@@ -27,6 +28,13 @@ export class ChatComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.authService.getUser();
+    this.chatService.msgsChange.subscribe(() => {
+      // Wrap in setTimeout to delay execution from call stack
+      setTimeout(() => {
+        // Scroll to bottom on new messages
+        this.messageList.nativeElement.scrollTop = this.messageList.nativeElement.scrollHeight;
+      }, 0);
+    });
   }
 
   onEdit(msg: Message): void {

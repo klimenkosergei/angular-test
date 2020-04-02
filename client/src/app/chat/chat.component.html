@@ -2,6 +2,7 @@
   <mat-card class="chat__body">
     <mat-card-title class="chat__title">Chat Room</mat-card-title>
     <app-message-list
+      #messageList
       (editMsg)="onEdit($event)"
       class="chat__messages"
     ></app-message-list>
