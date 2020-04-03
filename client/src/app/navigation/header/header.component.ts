@@ -9,12 +9,12 @@ import { AuthService } from 'src/app/auth/auth.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  isAuth: boolean;
-  authSubscription: Subscription;
+  public isAuth: boolean;
+  public authSubscription: Subscription;
 
   constructor(private authService: AuthService) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.isAuth = this.authService.isAuth();
     this.authSubscription = this.authService.authChange.subscribe(
       authStatus => {
@@ -23,11 +23,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     );
   }
 
-  onLogout(): void {
+  public onLogout(): void {
     this.authService.logout();
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.authSubscription.unsubscribe();
     this.authSubscription = null;
   }

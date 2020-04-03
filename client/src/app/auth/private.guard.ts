@@ -16,7 +16,7 @@ import { AuthService } from './auth.service';
 export class PrivateGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
-  canActivate(
+  public canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ):

@@ -8,12 +8,12 @@ import { User } from './user.model';
   providedIn: 'root'
 })
 export class AuthService {
-  authChange = new Subject<boolean>();
+  public authChange = new Subject<boolean>();
   private user: User;
 
   constructor(private router: Router) {}
 
-  loginUser(name: string): void {
+  public loginUser(name: string): void {
     this.user = {
       name
     };
@@ -23,22 +23,22 @@ export class AuthService {
     this.router.navigate(['/chat']);
   }
 
-  isAuth(): boolean {
+  public isAuth(): boolean {
     return this.user != null;
   }
 
-  loadUser(): void {
+  public loadUser(): void {
     const _user = JSON.parse(localStorage.getItem('user'));
     if (_user) {
       this.user = _user;
     }
   }
 
-  getUser(): User {
+  public getUser(): User {
     return { ...this.user };
   }
 
-  logout(): void {
+  public logout(): void {
     this.user = null;
     localStorage.removeItem('user');
     this.authChange.next(false);

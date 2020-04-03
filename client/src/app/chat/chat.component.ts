@@ -13,20 +13,20 @@ import { Message } from './mesage.model';
   styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent implements OnInit {
-  messageForm = new FormGroup({
+  public messageForm = new FormGroup({
     message: new FormControl('')
   });
-  @ViewChild('messageInput') messageInput: ElementRef;
-  @ViewChild('messageList', { read: ElementRef }) messageList: ElementRef;
-  user: User;
-  message: Message;
+  @ViewChild('messageInput') public messageInput: ElementRef;
+  @ViewChild('messageList', { read: ElementRef }) public messageList: ElementRef;
+  public user: User;
+  public message: Message;
 
   constructor(
     private authService: AuthService,
     private chatService: ChatService
   ) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.user = this.authService.getUser();
     this.chatService.msgsChange.subscribe(() => {
       // Wrap in setTimeout to delay execution from call stack
@@ -37,7 +37,7 @@ export class ChatComponent implements OnInit {
     });
   }
 
-  onEdit(msg: Message): void {
+  public onEdit(msg: Message): void {
     // Set current message, update form values and focus input
     this.message = msg;
     this.messageForm.patchValue({
@@ -46,7 +46,7 @@ export class ChatComponent implements OnInit {
     this.messageInput.nativeElement.focus();
   }
 
-  onSubmit(): void {
+  public onSubmit(): void {
     // Get the value from form input
     const text: string = this.messageForm.value.message;
     if (text.length > 0) {

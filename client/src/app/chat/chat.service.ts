@@ -7,11 +7,11 @@ import { Message } from './mesage.model';
   providedIn: 'root'
 })
 export class ChatService {
-  msgsChange = new Subject<Message[]>();
-  messages: Message[];
+  public msgsChange = new Subject<Message[]>();
+  public messages: Message[];
   constructor() {}
 
-  getMessages(): Message[] {
+  public getMessages(): Message[] {
     const _messages = JSON.parse(localStorage.getItem('messages'));
     if (_messages) {
       this.messages = _messages;
@@ -23,14 +23,14 @@ export class ChatService {
     return [...this.messages];
   }
 
-  sendMessage(msg: Message): void {
+  public sendMessage(msg: Message): void {
     // Add new message to the array
     this.messages = [...this.messages, msg];
     localStorage.setItem('messages', JSON.stringify([...this.messages]));
     this.msgsChange.next(this.messages);
   }
 
-  updateMessage(msg: Message): void {
+  public updateMessage(msg: Message): void {
     this.messages = this.messages.map(message =>
       message.id === msg.id ? msg : message
     );
@@ -38,7 +38,7 @@ export class ChatService {
     this.msgsChange.next(this.messages);
   }
 
-  removeMessage(id: string): void {
+  public removeMessage(id: string): void {
     this.messages = this.messages.filter(msg => msg.id !== id);
     localStorage.setItem('messages', JSON.stringify([...this.messages]));
     this.msgsChange.next(this.messages);

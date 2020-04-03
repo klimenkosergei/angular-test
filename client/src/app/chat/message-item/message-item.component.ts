@@ -12,9 +12,9 @@ import { DeleteMessageComponent } from './delete-message.component';
   styleUrls: ['./message-item.component.scss']
 })
 export class MessageItemComponent implements OnInit {
-  @Input() message: Message;
-  @Output() editMessage: EventEmitter<Message> = new EventEmitter();
-  isAuthor: boolean;
+  @Input() public message: Message;
+  @Output() public editMessage: EventEmitter<Message> = new EventEmitter();
+  public isAuthor: boolean;
 
   constructor(
     private authService: AuthService,
@@ -22,15 +22,15 @@ export class MessageItemComponent implements OnInit {
     public dialog: MatDialog
   ) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.isAuthor = this.authService.getUser().name === this.message.user;
   }
 
-  onEdit(): void {
+  public onEdit(): void {
     this.editMessage.emit(this.message);
   }
 
-  onDelete(): void {
+  public onDelete(): void {
     // Get a reference to delete message dialog
     const deleteMessageRef = this.dialog.open(DeleteMessageComponent, {
       data: {

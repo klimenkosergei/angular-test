@@ -17,13 +17,13 @@ import { ChatService } from '../chat.service';
   styleUrls: ['./message-list.component.scss']
 })
 export class MessageListComponent implements OnInit, OnDestroy {
-  @Output() editMsg: EventEmitter<Message> = new EventEmitter();
-  messages: Message[];
-  messagesSubscription: Subscription;
+  @Output() public editMsg: EventEmitter<Message> = new EventEmitter();
+  public messages: Message[];
+  public messagesSubscription: Subscription;
 
   constructor(private chatService: ChatService) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.messages = this.chatService.getMessages();
     this.messagesSubscription = this.chatService.msgsChange.subscribe(
       updatedMessages => {
@@ -32,11 +32,11 @@ export class MessageListComponent implements OnInit, OnDestroy {
     );
   }
 
-  editMessage(msg: Message): void {
+  public editMessage(msg: Message): void {
     this.editMsg.emit(msg);
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.messagesSubscription.unsubscribe();
     this.messagesSubscription = null;
   }

@@ -11,9 +11,9 @@ import { AuthService } from '../auth.service';
 export class LoginComponent implements OnInit {
   constructor(private authService: AuthService) {}
 
-  ngOnInit(): void {}
+  public ngOnInit(): void {}
 
-  onSubmit(form: NgForm): void {
+  public onSubmit(form: NgForm): void {
     if (form.valid) {
       this.authService.loginUser(form.value.username);
     }
