@@ -8,7 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "stylelint": "stylelint '**/*.scss'"
+    "stylelint": "stylelint '**/*.scss'",
+    "stylelint:fix": "stylelint '**/*.scss' --fix"
   },
   "private": true,
   "dependencies": {
