@@ -2,7 +2,10 @@
   <div class="message__header">
     <div class="message__user">{{ message.user }}</div>
     <div class="message__time">{{ message.timestamp }}</div>
-    <div *ngIf="isAuthor" class="message__controls">
+    <div
+      *ngIf="(author | async)?.name === message.user"
+      class="message__controls"
+    >
       <button mat-icon-button color="primary" (click)="onEdit()">
         <mat-icon>edit</mat-icon>
       </button>

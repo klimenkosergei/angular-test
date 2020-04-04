@@ -1,36 +1,24 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { AuthService } from 'src/app/auth/auth.service';
+import { User } from 'src/app/auth/user.model';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit, OnDestroy {
-  public isAuth: boolean;
-  public userSubscription: Subscription;
+export class HeaderComponent implements OnInit {
+  public user: Observable<User>;
 
   constructor(private authService: AuthService) {}
 
   public ngOnInit(): void {
-    this.userSubscription = this.authService
-      .current()
-      .pipe(map((user) => !!user))
-      .subscribe((authStatus) => {
-        this.isAuth = authStatus;
-      });
+    this.user = this.authService.current();
   }
 
   public onLogout(): void {
     this.authService.logout();
-  }
-
-  public ngOnDestroy(): void {
-    // Clean subscription when component is unmounted
-    this.userSubscription.unsubscribe();
-    this.userSubscription = null;
   }
 }
