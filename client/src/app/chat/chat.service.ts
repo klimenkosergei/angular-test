@@ -1,46 +1,54 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 import { Message } from './mesage.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ChatService {
-  public msgsChange = new Subject<Message[]>();
-  public messages: Message[];
-  constructor() {}
+  private messages = new BehaviorSubject<Message[]>([]);
 
-  public getMessages(): Message[] {
-    const _messages = JSON.parse(localStorage.getItem('messages'));
-    if (_messages) {
-      this.messages = _messages;
-    } else {
-      this.messages = [];
-      // If there are no messages object in local storage create it
-      localStorage.setItem('messages', '[]');
+  constructor() {
+    this.loadMessages();
+    this.saveMessages();
+  }
+
+  private loadMessages(): void {
+    // Load messages from local storage
+    const messages = JSON.parse(localStorage.getItem('messages'));
+    if (messages) {
+      this.messages.next(messages);
     }
-    return [...this.messages];
+  }
+
+  private saveMessages(): void {
+    // Subscribe to messages change and update local storage
+    this.messages.subscribe((_messages) => {
+      localStorage.setItem('messages', JSON.stringify(_messages));
+    });
+  }
+
+  public currentMessages(): Observable<Message[]> {
+    return this.messages.asObservable();
   }
 
   public sendMessage(msg: Message): void {
     // Add new message to the array
-    this.messages = [...this.messages, msg];
-    localStorage.setItem('messages', JSON.stringify([...this.messages]));
-    this.msgsChange.next(this.messages);
+    this.messages.next([...this.messages.value, msg]);
   }
 
   public updateMessage(msg: Message): void {
-    this.messages = this.messages.map(message =>
+    // Map through messages and replace the edited message
+    const updatedMessages = this.messages.value.map((message) =>
       message.id === msg.id ? msg : message
     );
-    localStorage.setItem('messages', JSON.stringify([...this.messages]));
-    this.msgsChange.next(this.messages);
+    this.messages.next(updatedMessages);
   }
 
   public removeMessage(id: string): void {
-    this.messages = this.messages.filter(msg => msg.id !== id);
-    localStorage.setItem('messages', JSON.stringify([...this.messages]));
-    this.msgsChange.next(this.messages);
+    // Filter through messages and return all that don't match id
+    const filteredMessages = this.messages.value.filter((msg) => msg.id !== id);
+    this.messages.next(filteredMessages);
   }
 }

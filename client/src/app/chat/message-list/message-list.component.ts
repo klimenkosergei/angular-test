@@ -2,9 +2,8 @@ import {
   Component,
   OnInit,
   OnDestroy,
-  Input,
   Output,
-  EventEmitter
+  EventEmitter,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 
@@ -14,22 +13,21 @@ import { ChatService } from '../chat.service';
 @Component({
   selector: 'app-message-list',
   templateUrl: './message-list.component.html',
-  styleUrls: ['./message-list.component.scss']
+  styleUrls: ['./message-list.component.scss'],
 })
 export class MessageListComponent implements OnInit, OnDestroy {
   @Output() public editMsg: EventEmitter<Message> = new EventEmitter();
   public messages: Message[];
-  public messagesSubscription: Subscription;
+  public chatSubscription: Subscription;
 
   constructor(private chatService: ChatService) {}
 
   public ngOnInit(): void {
-    this.messages = this.chatService.getMessages();
-    this.messagesSubscription = this.chatService.msgsChange.subscribe(
-      updatedMessages => {
-        this.messages = updatedMessages;
-      }
-    );
+    this.chatSubscription = this.chatService
+      .currentMessages()
+      .subscribe((messages) => {
+        this.messages = messages;
+      });
   }
 
   public editMessage(msg: Message): void {
@@ -37,7 +35,8 @@ export class MessageListComponent implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy(): void {
-    this.messagesSubscription.unsubscribe();
-    this.messagesSubscription = null;
+    // Clean subscription when component is unmounted
+    this.chatSubscription.unsubscribe();
+    this.chatSubscription = null;
   }
 }

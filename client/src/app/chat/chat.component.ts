@@ -43,7 +43,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.authSubscription = this.authService.current().subscribe((user) => {
       this.user = user;
     });
-    this.chatSubscription = this.chatService.msgsChange.subscribe(() => {
+    this.chatSubscription = this.chatService.currentMessages().subscribe(() => {
       // Wrap in setTimeout to delay execution from call stack
       setTimeout(() => {
         // Scroll to bottom on new messages
