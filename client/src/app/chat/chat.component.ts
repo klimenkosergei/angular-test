@@ -1,5 +1,12 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { SubscriptionLike } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 
 import { AuthService } from '../auth/auth.service';
@@ -10,14 +17,20 @@ import { Message } from './mesage.model';
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.scss']
+  styleUrls: ['./chat.component.scss'],
 })
-export class ChatComponent implements OnInit {
+export class ChatComponent implements OnInit, OnDestroy {
+  private authSubscription: SubscriptionLike;
+  private chatSubscription: SubscriptionLike;
+
   public messageForm = new FormGroup({
-    message: new FormControl('')
+    message: new FormControl(''),
   });
+
   @ViewChild('messageInput') public messageInput: ElementRef;
-  @ViewChild('messageList', { read: ElementRef }) public messageList: ElementRef;
+  @ViewChild('messageList', { read: ElementRef })
+  public messageList: ElementRef;
+
   public user: User;
   public message: Message;
 
@@ -27,8 +40,10 @@ export class ChatComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {
-    this.user = this.authService.getUser();
-    this.chatService.msgsChange.subscribe(() => {
+    this.authSubscription = this.authService.current().subscribe((user) => {
+      this.user = user;
+    });
+    this.chatSubscription = this.chatService.msgsChange.subscribe(() => {
       // Wrap in setTimeout to delay execution from call stack
       setTimeout(() => {
         // Scroll to bottom on new messages
@@ -41,7 +56,7 @@ export class ChatComponent implements OnInit {
     // Set current message, update form values and focus input
     this.message = msg;
     this.messageForm.patchValue({
-      message: this.message.text
+      message: this.message.text,
     });
     this.messageInput.nativeElement.focus();
   }
@@ -55,7 +70,7 @@ export class ChatComponent implements OnInit {
         // If we are editing message update it
         this.chatService.updateMessage({
           ...this.message,
-          text
+          text,
         });
         // Set current message back to null
         this.message = null;
@@ -65,13 +80,21 @@ export class ChatComponent implements OnInit {
           user: this.user.name,
           timestamp: date.toLocaleTimeString('en-GB', {
             hour: '2-digit',
-            minute: '2-digit'
+            minute: '2-digit',
           }),
-          text
+          text,
         });
       }
       // Reset form inputs
       this.messageForm.reset();
     }
+  }
+
+  public ngOnDestroy(): void {
+    // Clean subscriptions when component is unmounted
+    this.authSubscription.unsubscribe();
+    this.authSubscription = null;
+    this.chatSubscription.unsubscribe();
+    this.chatSubscription = null;
   }
 }

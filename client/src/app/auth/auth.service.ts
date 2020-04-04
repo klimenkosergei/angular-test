@@ -1,47 +1,39 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Subject, Observable, BehaviorSubject } from 'rxjs';
 
 import { User } from './user.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-  public authChange = new Subject<boolean>();
-  private user: User;
+  private user = new BehaviorSubject<User>(null);
 
   constructor(private router: Router) {}
 
   public loginUser(name: string): void {
-    this.user = {
-      name
-    };
+    this.user.next({ name });
     // Save authentication to local storage
-    localStorage.setItem('user', JSON.stringify(this.user));
-    this.authChange.next(true);
+    localStorage.setItem('user', name);
     this.router.navigate(['/chat']);
   }
 
-  public isAuth(): boolean {
-    return this.user != null;
-  }
-
   public loadUser(): void {
-    const _user = JSON.parse(localStorage.getItem('user'));
-    if (_user) {
-      this.user = _user;
+    // Get user from local storage (if authenticated)
+    const name = localStorage.getItem('user');
+    if (name) {
+      this.user.next({ name });
     }
   }
 
-  public getUser(): User {
-    return { ...this.user };
+  public current(): Observable<User> {
+    return this.user.asObservable();
   }
 
   public logout(): void {
-    this.user = null;
+    this.user.next(null);
     localStorage.removeItem('user');
-    this.authChange.next(false);
     this.router.navigate(['/']);
   }
 }
