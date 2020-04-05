@@ -1,4 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 
@@ -12,6 +19,7 @@ import { User } from '../../models/user.model';
   selector: 'app-message-item',
   templateUrl: './message-item.component.html',
   styleUrls: ['./message-item.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MessageItemComponent implements OnInit {
   @Input() public message: Message;
