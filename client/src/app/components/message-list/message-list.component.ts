@@ -1,8 +1,8 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Message } from '../mesage.model';
-import { ChatService } from '../chat.service';
+import { ChatService } from '../../services/chat.service';
+import { Message } from '../../models/mesage.model';
 
 @Component({
   selector: 'app-message-list',

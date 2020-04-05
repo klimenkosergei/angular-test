@@ -9,17 +9,17 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { SubscriptionLike } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 
-import { AuthService } from '../auth/auth.service';
-import { User } from '../auth/user.model';
-import { ChatService } from './chat.service';
-import { Message } from './mesage.model';
+import { AuthService } from '../../services/auth.service';
+import { ChatService } from '../../services/chat.service';
+import { User } from '../../models/user.model';
+import { Message } from '../../models/mesage.model';
 
 @Component({
   selector: 'app-chat',
-  templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.scss'],
+  templateUrl: './chat.page.html',
+  styleUrls: ['./chat.page.scss'],
 })
-export class ChatComponent implements OnInit, OnDestroy {
+export class ChatPage implements OnInit, OnDestroy {
   private authSubscription: SubscriptionLike;
   private chatSubscription: SubscriptionLike;
 

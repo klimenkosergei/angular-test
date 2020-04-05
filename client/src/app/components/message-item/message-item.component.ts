@@ -2,11 +2,11 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 
-import { AuthService } from 'src/app/auth/auth.service';
-import { Message } from '../mesage.model';
-import { ChatService } from '../chat.service';
+import { AuthService } from '../../services/auth.service';
+import { ChatService } from '../../services/chat.service';
 import { DeleteMessageComponent } from './delete-message.component';
-import { User } from 'src/app/auth/user.model';
+import { Message } from '../../models/mesage.model';
+import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-message-item',
