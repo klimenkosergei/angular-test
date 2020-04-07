@@ -1,9 +1,9 @@
 .message {
   &__header {
-    display: flex;
     align-items: center;
-    margin-bottom: 1rem;
+    display: flex;
     height: 4rem;
+    margin-bottom: 1rem;
   }
 
   &__controls {
@@ -15,8 +15,8 @@
   }
 
   &__time {
-    font-size: 1.2rem;
     color: #9c9c9c;
+    font-size: 1.2rem;
     line-height: 1.2;
     margin-left: 1.5rem;
   }

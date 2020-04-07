@@ -1,7 +1,7 @@
 <mat-card-content class="message__list">
   <app-message-item
     class="message__item"
-    *ngFor="let message of messages"
+    *ngFor="let message of messages | async"
     [message]="message"
     (editMessage)="editMessage($event)"
   ></app-message-item>

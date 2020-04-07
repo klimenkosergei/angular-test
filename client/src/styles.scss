@@ -1,10 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 *,
-*::after,
-*::before {
+*:after,
+*:before {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 html,
@@ -18,7 +18,7 @@ html {
 }
 
 body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
   background: #edeef0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  margin: 0;
 }

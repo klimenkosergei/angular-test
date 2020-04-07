@@ -1,27 +1,27 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
-import { HeaderComponent } from './navigation/header/header.component';
-import { LoginComponent } from './auth/login/login.component';
-import { ChatComponent } from './chat/chat.component';
-import { MessageListComponent } from './chat/message-list/message-list.component';
-import { MessageItemComponent } from './chat/message-item/message-item.component';
-import { DeleteMessageComponent } from './chat/message-item/delete-message.component';
+import { AppComponent } from './app.component';
+import { LoginPage } from './pages/login/login.page';
+import { ChatPage } from './pages/chat/chat.page';
+import { HeaderComponent } from './components/header/header.component';
+import { MessageListComponent } from './components/message-list/message-list.component';
+import { MessageItemComponent } from './components/message-item/message-item.component';
+import { DeleteMessageComponent } from './components/message-item/delete-message.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    LoginComponent,
-    ChatComponent,
+    LoginPage,
+    ChatPage,
     MessageListComponent,
     MessageItemComponent,
-    DeleteMessageComponent
+    DeleteMessageComponent,
   ],
   imports: [
     BrowserModule,
@@ -29,10 +29,10 @@ import { DeleteMessageComponent } from './chat/message-item/delete-message.compo
     BrowserAnimationsModule,
     MaterialModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [DeleteMessageComponent]
+  entryComponents: [DeleteMessageComponent],
 })
 export class AppModule {}
